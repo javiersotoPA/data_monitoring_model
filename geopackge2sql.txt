@@ -1,0 +1,3 @@
+ogr2ogr -f PGDUMP monitoring.sql -lco LAUNDER=NO -lco DROP_TABLE=OFF Monitoring.gpkg
+
+https://www.cockroachlabs.com/docs/stable/migrate-from-geopackage.html
