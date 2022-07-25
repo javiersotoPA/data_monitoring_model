@@ -1,0 +1,18 @@
+ogr2ogr -f PGDUMP monitoring.sql -lco LAUNDER=NO -lco DROP_TABLE=OFF Monitoring.gpkg
+
+https://www.cockroachlabs.com/docs/stable/migrate-from-geopackage.html
+
+
+
+
+pg_dump -n *pa_monitoring -U j_soto peatland_action > pa_monitoring_schema.sql
+
+pg_restore -U postgres -p 5433 -d monitoring 
+psql --username postgres --dbname monitoring --port 5433 -f pa_monitoring_schema.sql
+
+
+
+pg_dump -U j_soto -p 5432 --schema pa_metadata --create --file source_pa_metadata_schema.bak peatland_action
+pg_restore -U postgres -p 5433 --dbname monitoring source_pa_monitoring_schema.bak
+
+psql --username postgres --port 5433 --dbname monitoring -f source_pa_metadata_schema.bak 
